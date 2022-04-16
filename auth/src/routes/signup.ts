@@ -16,12 +16,12 @@ router.post(
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-      return res.status(400).send(errors.array());
+      throw new Error("invalid email or password");
     }
-    const { email, password } = req.body;
+    // const { email, password } = req.body;
 
     console.log("Creating a user...");
-
+    throw new Error("error connecting to datanas");
     res.send({});
 
     // new User({ email, password })
