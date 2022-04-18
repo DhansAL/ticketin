@@ -6,7 +6,7 @@ interface UserCreds {
   password: string;
 }
 // an interface that describes the properties that a usermodel has
-interface UserModel extends mongoose.Model<any> {
+interface UserModel extends mongoose.Model<UserDoc> {
   build(creds: UserCreds): UserDoc; //return a user doc
 }
 

@@ -8,6 +8,7 @@ import { errorHandler } from "./middlewares/errorHandler";
 import { NotFoundError } from "./errors/notFoundError";
 import mongoose from "mongoose";
 import cookieSession from "cookie-session";
+import { signoutRouter } from "./routes/signout";
 
 // env verifications
 if (!process.env.JWT_KEY) throw new Error("env -- jwt key is not defined");
@@ -23,6 +24,7 @@ app.use(
 app.use(currentUserRouter);
 app.use(signinRouter);
 app.use(signupRouter);
+app.use(signoutRouter);
 
 app.all("*", () => {
   throw new NotFoundError();
