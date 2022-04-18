@@ -3,7 +3,7 @@ import { body, validationResult } from "express-validator";
 import { BadRequestError } from "../errors/badRequestError";
 import { RequestValidationError } from "../errors/requestValidationError";
 import { User } from "../models/user";
-import jwt from "jsonwebtoken";
+import jwt, { Secret } from "jsonwebtoken";
 
 const router = express.Router();
 
@@ -37,7 +37,7 @@ router.post(
         id: user.id,
         email: user.email,
       },
-      "aynaissaikyoothisseasonlol"
+      process.env.JWT_KEY!
     );
     //store it in session obj
     // req.session!.jwt = userJwt;??

@@ -9,6 +9,9 @@ import { NotFoundError } from "./errors/notFoundError";
 import mongoose from "mongoose";
 import cookieSession from "cookie-session";
 
+// env verifications
+if (!process.env.JWT_KEY) throw new Error("env -- jwt key is not defined");
+
 const app = express();
 app.use(json());
 app.use(
