@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { Encryption } from "../services/encryption";
 
 interface UserCreds {
   email: string;
@@ -24,6 +25,16 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+});
+
+//mongoose middleware
+// we call the callback fn done instead of using --await
+userSchema.pre("save", async function (done) {
+  if (this.isModified("password")) {
+    const hashed = await Encryption.toHash(this.get("password"));
+    this.set("password", hashed);
+  }
+  done();
 });
 
 // takes creds which are in interface, better than giving your model an interface in generic i think.
