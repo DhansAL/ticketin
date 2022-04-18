@@ -37,7 +37,7 @@ router.post(
         id: user.id,
         email: user.email,
       },
-      "dssf"
+      "aynaissaikyoothisseasonlol"
     );
     //store it in session obj
     // req.session!.jwt = userJwt;??
