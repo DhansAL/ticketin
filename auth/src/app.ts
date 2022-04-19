@@ -10,7 +10,7 @@ import cookieSession from "cookie-session";
 import { signoutRouter } from "./routes/signout";
 
 // env verifications
-if (!process.env.JWT_KEY) throw new Error("env -- jwt key is not defined");
+// if (!process.env.JWT_KEY) throw new Error("env -- jwt key is not defined");
 
 export const app = express();
 app.set("trust proxy", true);
