@@ -18,7 +18,7 @@ app.use(json());
 app.use(
   cookieSession({
     signed: false,
-    secure: true, //ingress proxy something
+    secure: process.env.NODE_ENV !== "test", //enables that only https requests recieve a sweet cookie
   })
 );
 app.use(currentUserRouter);
