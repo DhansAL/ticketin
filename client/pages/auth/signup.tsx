@@ -1,32 +1,25 @@
 import { NextPage } from "next";
 import { SyntheticEvent, useState } from "react";
-import axios, { AxiosError } from 'axios'
+import { UseRequest } from "../../hooks/useRequest";
 
-type UserCreds = {
-    message: string,
-    field: string
-}[]
+
+
 const Signup: NextPage = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [errors, setErrors] = useState<UserCreds>([])
+
+    const { doRequest, errors } = UseRequest({
+        url: "/api/users/signup",
+        method: "post",
+        body: {
+            email, password
+        }
+    })
 
 
     const handleSubmit = async (eve: SyntheticEvent) => {
         eve.preventDefault()
-        console.log(email, password);
-        try {
-            const res = await axios.post('/api/users/signup', {
-                email, password
-            })
-
-        } catch (error) {
-            const errors = error as AxiosError;
-            if (!axios.isAxiosError(errors)) {
-                console.log(errors);
-            }
-            setErrors(errors.response?.data)
-        }
+        doRequest()
     }
 
     return (
@@ -37,7 +30,7 @@ const Signup: NextPage = () => {
                 <input
                     value={email}
                     onChange={e => setEmail(e.target.value)}
-                    type="email"
+                    type="text"
                     className="form-control" />
             </div>
             <div className="form-group">
@@ -48,16 +41,7 @@ const Signup: NextPage = () => {
                     type="password"
                     className="form-control" />
             </div>
-            {errors.length > 0 && (
-                <div className="alert alert-danger">
-                    <h1>oops...</h1>
-                    <ul className="my-0">
-                        {errors.map(err => (
-                            <li key={err.message}>{err.message}</li>
-                        ))}
-                    </ul>
-                </div>
-            )}
+            {errors}
             <button className="btn btn-primary">Sign up</button>
         </form>
     )

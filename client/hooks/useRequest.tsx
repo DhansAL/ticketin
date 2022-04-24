@@ -13,9 +13,10 @@ type options = {
 
 export const UseRequest = (options: options) => {
   const { url, method, body } = options;
-  const [errors, setErrors] = useState<JSX.Element>(); //errors to send from hook
+  const [errors, setErrors] = useState<JSX.Element | null>(null); //errors to send from hook
 
   const doRequest = async () => {
+    setErrors(null)
     try {
       const res = await axios[method](url, body);
       return res.data;
