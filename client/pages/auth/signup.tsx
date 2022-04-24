@@ -1,8 +1,7 @@
 import { NextPage } from "next";
+import Router from "next/router";
 import { SyntheticEvent, useState } from "react";
 import { UseRequest } from "../../hooks/useRequest";
-
-
 
 const Signup: NextPage = () => {
     const [email, setEmail] = useState('')
@@ -13,13 +12,16 @@ const Signup: NextPage = () => {
         method: "post",
         body: {
             email, password
-        }
+        },
+        onSuccess: () => Router.push("/")
     })
 
 
     const handleSubmit = async (eve: SyntheticEvent) => {
-        eve.preventDefault()
-        doRequest()
+        eve.preventDefault();
+        setEmail("")
+        setPassword("")
+        await doRequest();
     }
 
     return (
