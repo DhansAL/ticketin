@@ -1,14 +1,7 @@
 import { NextPage, NextPageContext } from "next";
 import { buildClient } from "../api/buildClient";
-type ResponseProps = {
-  currentUser: {
-    email: string;
-    iat: number;
-    id: string
-  }
-}
-const Home: NextPage<ResponseProps> = (props) => {
-  console.log(props.currentUser, "props");
+
+const Home: NextPage = (props) => {
   return <>home paa'ge</>;
 };
 
