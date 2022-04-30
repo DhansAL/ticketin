@@ -3,9 +3,10 @@ import { app } from "./app";
 ////
 const dbConnection = async () => {
 if(!process.env.JWT_KEY) throw new Error("JWT KEY must be defined")
+if(!process.env.MONGO_URI) throw new Error("MONGO_URI must be defined")
 
   try {
-    await mongoose.connect("mongodb://auth-mongo-srv:27017/auth");
+    await mongoose.connect(process.env.MONGO_URI);
     console.log("connection ok ds");
   } catch (error) {
     console.error(error);
