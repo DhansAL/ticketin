@@ -1,4 +1,4 @@
-import { errorHandler, NotFoundError } from "@dticketin/common";
+import { errorHandler, NotFoundError, currentUser } from "@dticketin/common";
 import { json } from "body-parser";
 import cookieSession from "cookie-session";
 import express from "express";
@@ -14,11 +14,15 @@ app.use(json());
 app.use(
   cookieSession({
     signed: false,
-    secure: process.env.NODE_ENV !== "test", //enables that only https requests recieve a sweet cookie
+    secure: process.env.NODE_ENV !== "test",
   })
 );
+
 // routes
 app.use(createTicketRouter);
+
+//middlewares
+app.use(currentUser);
 
 app.all("*", () => {
   throw new NotFoundError();
