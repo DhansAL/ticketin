@@ -3,6 +3,7 @@ import { json } from "body-parser";
 import cookieSession from "cookie-session";
 import express from "express";
 import "express-async-errors";
+import { createTicketRouter } from "./routes/new";
 
 // env verifications
 // if (!process.env.JWT_KEY) throw new Error("env -- jwt key is not defined");
@@ -16,7 +17,8 @@ app.use(
     secure: process.env.NODE_ENV !== "test", //enables that only https requests recieve a sweet cookie
   })
 );
-
+// routes
+app.use(createTicketRouter);
 
 app.all("*", () => {
   throw new NotFoundError();
