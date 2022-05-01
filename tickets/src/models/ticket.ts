@@ -1,17 +1,19 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
-interface TicketCreds {
+interface TicketAttrs {
   title: string;
   price: number;
   userId: string;
 }
+
 interface TicketDoc extends mongoose.Document {
   title: string;
   price: number;
   userId: string;
 }
+
 interface TicketModel extends mongoose.Model<TicketDoc> {
-  build(creds: TicketCreds): TicketDoc;
+  build(attrs: TicketAttrs): TicketDoc;
 }
 
 const ticketSchema = new mongoose.Schema(
@@ -39,9 +41,10 @@ const ticketSchema = new mongoose.Schema(
   }
 );
 
-ticketSchema.statics.build = (creds: TicketCreds) => {
-  return new Ticket(creds);
+ticketSchema.statics.build = (attrs: TicketAttrs) => {
+  return new Ticket(attrs);
 };
-const Ticket = mongoose.model<TicketDoc, TicketModel>("Ticket", ticketSchema);
+
+const Ticket = mongoose.model<TicketDoc, TicketModel>('Ticket', ticketSchema);
 
 export { Ticket };

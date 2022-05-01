@@ -1,15 +1,12 @@
-import { errorHandler, NotFoundError, currentUser } from "@dticketin/common";
-import { json } from "body-parser";
-import cookieSession from "cookie-session";
 import express from "express";
 import "express-async-errors";
+import { json } from "body-parser";
+import cookieSession from "cookie-session";
+import { errorHandler, NotFoundError, currentUser } from "@cygnetops/common";
 import { createTicketRouter } from "./routes/new";
 import { showTicketRouter } from "./routes/show";
 
-// env verifications
-// if (!process.env.JWT_KEY) throw new Error("env -- jwt key is not defined");
-
-export const app = express();
+const app = express();
 app.set("trust proxy", true);
 app.use(json());
 app.use(
@@ -18,16 +15,15 @@ app.use(
     secure: process.env.NODE_ENV !== "test",
   })
 );
+app.use(currentUser);
 
-// routes
 app.use(createTicketRouter);
 app.use(showTicketRouter);
 
-//middlewares
-app.use(currentUser);
-
-app.all("*", () => {
+app.all("*", async (req, res) => {
   throw new NotFoundError();
 });
 
 app.use(errorHandler);
+
+export { app };
