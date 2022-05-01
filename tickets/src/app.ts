@@ -4,6 +4,7 @@ import cookieSession from "cookie-session";
 import express from "express";
 import "express-async-errors";
 import { createTicketRouter } from "./routes/new";
+import { showTicketRouter } from "./routes/show";
 
 // env verifications
 // if (!process.env.JWT_KEY) throw new Error("env -- jwt key is not defined");
@@ -20,6 +21,7 @@ app.use(
 
 // routes
 app.use(createTicketRouter);
+app.use(showTicketRouter);
 
 //middlewares
 app.use(currentUser);
