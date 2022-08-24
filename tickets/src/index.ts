@@ -4,6 +4,7 @@ import { app } from "./app";
 import { natsWrapper } from "./natsWrapper";
 
 const start = async () => {
+  console.log(process.version, "nodeversion in tickets");
   if (!process.env.JWT_KEY) {
     throw new Error("JWT_KEY must be defined");
   }
@@ -15,7 +16,7 @@ const start = async () => {
     await natsWrapper.connect(
       "ticketing",
       "nats-ticketin",
-      "http://nats-srv:4222"
+      "http://localhost:4222"
     ); //specs mentioned in depl file of nats
     natsWrapper.client.on("close", () => {
       console.log("TICKETS- NATS connection closed.");

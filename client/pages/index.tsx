@@ -2,7 +2,7 @@ import { NextPage, NextPageContext } from "next";
 import { buildClient } from "../api/buildClient";
 
 const Home: NextPage = (props) => {
-  return <>home paa'ge</>;
+  return <>welcum</>;
 };
 
 Home.getInitialProps = async (context: NextPageContext) => {

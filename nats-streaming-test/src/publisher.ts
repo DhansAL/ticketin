@@ -3,7 +3,7 @@ import { TicketCreatedPublisher } from "./events/ticketCreatedPublisher";
 
 console.clear();
 
-const stan = nats.connect("ticketing", "abc", {
+const stan = nats.connect("ticketin", "fdsfsdfsf", {
   url: "http://localhost:4222",
 });
 
@@ -22,12 +22,12 @@ stan.on("connect", async () => {
   }
 
   // const data = JSON.stringify({
-  //   id: '123',
-  //   title: 'concert',
-  //   price: '$20',
+  //   id: "123",
+  //   title: "concert",
+  //   price: "$20",
   // });
 
-  // stan.publish('TicketCreated', data, () => {
-  //   console.log('Event published');
+  // stan.publish("TicketCreated", data, () => {
+  //   console.log("Event published");
   // });
 });
